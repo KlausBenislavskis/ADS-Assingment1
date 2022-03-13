@@ -1,3 +1,4 @@
+import exceptions.MalformedExpressionException;
 import jdk.jshell.spi.ExecutionControl;
 
 import java.lang.reflect.MalformedParametersException;
@@ -10,8 +11,15 @@ public class CalculatorVisitor implements Visitor, Calculator {
     }
 
     @Override
-    public int getResult() throws MalformedParametersException {
-        return ((Operand) tokenStack.pop()).getValue();
+    public int getResult() throws MalformedExpressionException {
+        if (tokenStack.isEmpty()) {
+            throw new MalformedExpressionException("Stack is empty");
+        }
+        try {
+            return ((Operand) tokenStack.pop()).getValue();
+        } catch (Exception e) {
+            throw new MalformedExpressionException("too many numbers");
+        }
     }
 
     @Override

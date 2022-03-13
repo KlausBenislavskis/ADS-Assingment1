@@ -1,3 +1,5 @@
+import exceptions.EmptyListException;
+
 import java.util.EmptyStackException;
 
 public class LinkedList<T> implements List<T>
@@ -23,11 +25,10 @@ public class LinkedList<T> implements List<T>
     size++;
   }
 
-  @Override public T removeFirst() throws EmptyStackException
-  {
+  @Override public T removeFirst() throws  EmptyListException {
     if (isEmpty())
     {
-      throw new EmptyStackException();
+      throw new EmptyListException();
     }
     Node<T> oldFirst = head;
     head = head.getNext();
